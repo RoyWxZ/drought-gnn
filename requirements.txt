@@ -1,0 +1,7 @@
+pandas
+matplotlib
+numpy
+datetime
+torch
+torch_geometric
+dvc
