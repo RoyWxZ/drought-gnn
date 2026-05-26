@@ -1,0 +1,8 @@
+stages:
+  data_preprocessing:
+    cmd: python Data/data_preprocessing.py
+    deps:
+      - Data/data_preprocessing.py
+      - ../Data/Data_tabular_raw/201505-202309.csv
+    outs:
+      - ../Data/Data_preprocessed/preprocessed.csv

@@ -1,5 +1,10 @@
 import pandas as pd
 from sklearn.preprocessing import RobustScaler, MinMaxScaler
+from pathlib import Path
+
+# Resolves to drought-gnn/Data/Data_tabular_raw/ regardless of where the script is run from
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+RAW_DATA_DIR = PROJECT_ROOT / "Data" / "Data_tabular_raw"
 
 def load_data(url: str) -> pd.DataFrame:
     """Load raw tabular data for preprocessing."""
@@ -79,3 +84,17 @@ def normalize_data(dataset: pd.DataFrame) -> pd.DataFrame:
         print(f"Data normalization failed: {e}")
         return pd.DataFrame()
     
+def save_preprocessed_data(dataset: pd.DataFrame, filename: str) -> None:
+    """Save the preprocessed data to a CSV file."""
+    try:
+        dataset.to_csv(filename, index=False)
+        print(f"Preprocessed data saved successfully to {filename}.")
+    except Exception as e:
+        print(f"Error saving preprocessed data: {e}")
+
+if __name__ == "__main__":
+    url = RAW_DATA_DIR / "201505-202309.csv"
+    raw_data = load_data(url)
+    preprocessed_data = preprocess_data(raw_data)
+    normalized_data = normalize_data(preprocessed_data)
+    save_preprocessed_data(normalized_data, PROJECT_ROOT / "Data" / "Data_preprocessed" / "preprocessed.csv")
