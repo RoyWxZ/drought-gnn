@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  data_preprocessing:
+    cmd: python src/Data/data_preprocessing.py
+    deps:
+    - path: Data/Data_tabular_raw/201505-202309.csv
+      hash: md5
+      md5: 428756d1809320b28a07d049f179ba63
+      size: 18590334
+    - path: src/Data/data_preprocessing.py
+      hash: md5
+      md5: eb12b228f87be9cfed6426e7fa896e96
+      size: 5325
+    outs:
+    - path: Data/Data_preprocessed/preprocessed.csv
+      hash: md5
+      md5: 43bbc8158d40c9bb879a44a306d2ed93
+      size: 37550071

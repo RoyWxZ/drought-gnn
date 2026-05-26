@@ -69,11 +69,12 @@ def normalize_data(dataset: pd.DataFrame) -> pd.DataFrame:
     try:
         min_max_scaler = MinMaxScaler().set_output(transform="pandas")
         robust_scaler = RobustScaler().set_output(transform="pandas")
-        dataset_normalized = robust_scaler.fit_transform(dataset)
+        dataset_without_datetime = dataset.drop(["datetime"], axis=1) #drop datetime column for normalization since it is not a numerical feature
+        dataset_normalized = robust_scaler.fit_transform(dataset_without_datetime)
         dataset_normalized = min_max_scaler.fit_transform(dataset_normalized)
 
         #horziontally concatenate the normalized data with the original Month, Lat, and Lon columns
-        dataset = pd.concat([dataset[['Month','Lat', 'Lon']],dataset_normalized], axis=1)
+        dataset = pd.concat([dataset[['Month','Lat', 'Lon', "datetime"]],dataset_normalized], axis=1)
 
         #create a column of row indices that will be utilized downstream
         dataset["row index"] = dataset.index

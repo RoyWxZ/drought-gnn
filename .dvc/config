@@ -2,4 +2,4 @@
     remote = mys3remote
 ['remote "mys3remote"']
     url = s3://drought-gnn-dvc/dvc-cache
-    anonymous = true
+    allow_anonymous_login = true
