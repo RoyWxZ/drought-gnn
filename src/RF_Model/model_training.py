@@ -29,3 +29,15 @@ def load_data(url: str) -> pd.DataFrame:
         print(f"Error loading preprocessed data: {e}")
         return pd.DataFrame()
 
+def get_train_test_data(data: pd.DataFrame) -> tuple:
+    """Split data into training and testing sets based on month."""
+    train_data = data[data['month'].isin(train_months)]
+    test_data = data[data['month'].isin(test_months)]
+    
+    X_train = train_data.drop(columns=['next_month_spei01'])
+    y_train = train_data['next_month_spei01']
+    
+    X_test = test_data.drop(columns=['next_month_spei01'])
+    y_test = test_data['next_month_spei01']
+    
+    return X_train, X_test, y_train, y_test
