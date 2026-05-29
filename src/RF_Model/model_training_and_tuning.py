@@ -38,8 +38,8 @@ def load_data(url: str) -> pd.DataFrame:
 
 def get_train_test_data(data: pd.DataFrame) -> tuple:
     """Split data into training and testing sets based on month."""
-    train_data = data[data['month'].isin(train_months)]
-    test_data = data[data['month'].isin(test_months)]
+    train_data = data[data['Month'].isin(train_months)]
+    test_data = data[data['Month'].isin(test_months)]
 
     #drop non-normalized features and target variable
     X_train = train_data.drop(columns=['next_month_spei01', 'Month', 'Lat', 'Lon', 'datetime'])
@@ -87,8 +87,8 @@ def tune_hyperparameters(data: pd.DataFrame) -> dict:
     y = data['next_month_spei01']
 
     param_grid = {
-        'max_depth':         [None, 10, 20], #smaller max depth = less overfitting and faster training time
-        'min_samples_leaf':  [10, 20, 50], #larger min samples leaf = makes more general rules and less overfitting
+        'max_depth':         [None, 20, 50], #smaller max depth = less overfitting and faster training time
+        'min_samples_leaf':  [50, 100, 300], #larger min samples leaf = makes more general rules and less overfitting
         'max_features':      ['sqrt', 1.0], #smaller max features = greater forest diversity for more correlated features
     }
 
@@ -111,7 +111,7 @@ def tune_hyperparameters(data: pd.DataFrame) -> dict:
     return search.best_params_
 
 if __name__ == "__main__":
-    data_url = PROJECT_ROOT / "data/preprocessed_data.csv"
+    data_url = PROJECT_ROOT / "Data/Data_preprocessed/preprocessed.csv"
     dataset = load_data(data_url)
     best_params = tune_hyperparameters(dataset)
     X_train, X_test, y_train, y_test = get_train_test_data(dataset)
@@ -120,6 +120,7 @@ if __name__ == "__main__":
     rf_model = train_random_forest(X_train, y_train, params=best_params)
 
     model_save_path = PROJECT_ROOT / "Data/Models/rf_model.pkl"
+    model_save_path.parent.mkdir(parents=True, exist_ok=True)
     with open(model_save_path, "wb") as f:
         pickle.dump(rf_model, f)
     print(f"Trained Random Forest model saved to {model_save_path}.")

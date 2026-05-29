@@ -6,3 +6,12 @@ stages:
       - Data/Data_tabular_raw/201505-202309.csv
     outs:
       - Data/Data_preprocessed/preprocessed.csv
+
+  #Random Forest Pipeline
+  rf_model_training_and_tuning:
+    cmd: python src/RF_Model/model_training_and_tuning.py
+    deps:
+      - src/RF_Model/model_training_and_tuning.py
+      - Data/Data_preprocessed/preprocessed.csv
+    outs:
+      - Data/Models/rf_model.pkl
