@@ -16,3 +16,19 @@ stages:
       hash: md5
       md5: 56e1a036224c16997ef9adb0e6ab35fc
       size: 35936355
+  rf_model_training_and_tuning:
+    cmd: python src/RF_Model/model_training_and_tuning.py
+    deps:
+    - path: Data/Data_preprocessed/preprocessed.csv
+      hash: md5
+      md5: 56e1a036224c16997ef9adb0e6ab35fc
+      size: 35936355
+    - path: src/RF_Model/model_training_and_tuning.py
+      hash: md5
+      md5: 2ab11377dc2e79813d3034900bf7a287
+      size: 5485
+    outs:
+    - path: Data/Models/rf_model.pkl
+      hash: md5
+      md5: 7b73878c433a04960b6d2b181d8b60ba
+      size: 48852159

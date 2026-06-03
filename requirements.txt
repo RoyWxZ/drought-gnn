@@ -6,3 +6,6 @@ torch --index-url https://download.pytorch.org/whl/cu121dvc
 torch-geometric
 dvc
 scikit-learn
+networkx
+geopandas
+shapely
