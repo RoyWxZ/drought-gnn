@@ -1,5 +1,8 @@
 import networkx as nx
 import pandas as pd
+import matplotlib.pyplot as plt
+import geopandas as gpd
+from shapely.geometry import Point, LineString
 
 def load_data(url: str) -> pd.DataFrame:
     """Load preprocessed dataset."""
@@ -89,3 +92,6 @@ def construct_graph(dataset: pd.DataFrame, corr_df: pd.DataFrame, threshold: flo
     except Exception as e:
         print(f"Error constructing graph: {e}")
         return nx.Graph()
+    
+def generate_graph_visualization(graph: nx.DiGraph) -> plt.figure:
+    pass
