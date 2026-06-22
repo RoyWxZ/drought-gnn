@@ -79,7 +79,7 @@ def normalize_data(dataset: pd.DataFrame) -> pd.DataFrame:
         dataset = pd.concat([dataset[['Month','Lat', 'Lon', "datetime"]], dataset_normalized], axis=1)
 
         #create a column of row indices that will be utilized downstream
-        dataset["row index"] = dataset.index
+        dataset["row_index"] = dataset.index
 
         print("Data normalization completed successfully.")
         return dataset
